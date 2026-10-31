@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sai Karthik K — Java Full-Stack Developer</title>
+  <meta name="description" content="Portfolio of Sai Karthik K — Java, Spring Boot, React, MySQL developer based in Bengaluru.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0e1117;
+      --bg-raised: #161b22;
+      --bg-card: #1c2128;
+      --border: #2d333b;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --text-dim: #6e7681;
+      --accent: #e8a040;
+      --accent-dim: rgba(232, 160, 64, 0.12);
+      --link: #79c0ff;
+      --green: #56d364;
+      --red: #f47067;
+      --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) {
+        --bg: #f6f8fa;
+        --bg-raised: #ffffff;
+        --bg-card: #ffffff;
+        --border: #d8dee4;
+        --text: #1f2328;
+        --text-muted: #59636e;
+        --text-dim: #8b949e;
+        --accent: #c47a1a;
+        --accent-dim: rgba(196, 122, 26, 0.1);
+        --link: #0969da;
+        --green: #1a7f37;
+        --red: #cf222e;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0e1117;
+      --bg-raised: #161b22;
+      --bg-card: #1c2128;
+      --border: #2d333b;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --text-dim: #6e7681;
+      --accent: #e8a040;
+      --accent-dim: rgba(232, 160, 64, 0.12);
+      --link: #79c0ff;
+      --green: #56d364;
+      --red: #f47067;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--link); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.8; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links { display: flex; gap: 28px; }
+
+    .nav-links a {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); opacity: 1; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* MAIN LAYOUT */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { padding: 72px 0; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      letter-spacing: -0.02em;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 100px 0 80px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-greeting {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.25rem, 5vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .hero-links a:hover { color: var(--text); opacity: 1; }
+    .hero-links a svg { flex-shrink: 0; }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 36px;
+      padding: 10px 20px;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 6px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hero-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,160,64,0.25); opacity: 1; }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .exp-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+    }
+
+    .exp-company {
+      font-weight: 600;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+    }
+
+    .exp-role {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .exp-details {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .exp-details li {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .exp-details li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .skill-group {
+      background: var(--bg-raised);
+      padding: 24px;
+    }
+
+    .skill-group-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-tag {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      background: var(--accent-dim);
+      color: var(--text);
+      border-radius: 4px;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .project-card {
+      background: var(--bg-raised);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-name {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .project-stack {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    .project-desc {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .project-desc li {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .project-desc li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+
+    /* EDUCATION */
+    .edu-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      background: var(--bg-raised);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .edu-degree {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .edu-school {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .edu-right {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+    }
+
+    .edu-cgpa {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .edu-year {
+      color: var(--text-dim);
+      font-size: 0.75rem;
+    }
+
+    /* CONTACT */
+    .contact-section { border-top: 1px solid var(--border); }
+
+    .contact-grid {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-item:hover { border-color: var(--accent); color: var(--text); opacity: 1; }
+    .contact-item svg { flex-shrink: 0; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        padding: 16px 24px;
+        gap: 16px;
+      }
+      .nav-toggle { display: block; }
+
+      .hero { padding: 64px 0 56px; }
+      section { padding: 48px 0; }
+
+      .exp-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .edu-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .edu-right { text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero-cta { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">koderkarthik124</span>
+      <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="17" y2="6"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="14" x2="17" y2="14"/></svg>
+      </button>
+      <div class="nav-links">
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-greeting">Hi, I'm</p>
+      <h1>Sai Karthik K</h1>
+      <p class="hero-subtitle">
+        Java Full-Stack Developer building backend systems with Spring Boot and interactive frontends with React. I care about clean APIs, well-modeled data, and shipping things that work.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:saikarthikjob@gmail.com">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+          saikarthikjob@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/koderkarthik124" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/koderkarthik124" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="tel:+919380452696">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          +91-9380452696
+        </a>
+      </div>
+      <a href="#contact" class="hero-cta">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">// experience</p>
+      <h2 class="section-title">Where I've worked</h2>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-company">Prodhee Technologies</div>
+            Sep 2026 – Present<br>Bengaluru
+          </div>
+          <div>
+            <h3 class="exp-role">Java Full-Stack Developer Trainee</h3>
+            <ul class="exp-details">
+              <li>Developing full-stack web applications using Java, Spring Boot, Hibernate, and MySQL on the backend with React, HTML/CSS, and Bootstrap on the frontend.</li>
+              <li>Designed and implemented RESTful APIs for user management and order processing with CRUD operations, request validation, and structured JSON responses.</li>
+              <li>Modeled relational schemas with JPA entity mappings, wrote optimized SQL queries, and used Maven and Git/GitHub in an Agile workflow.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-company">Assisto AI</div>
+            May 2026 – Aug 2026<br>Remote
+          </div>
+          <div>
+            <h3 class="exp-role">AI Intern</h3>
+            <ul class="exp-details">
+              <li>Built a Reverse Image Search Engine backend with REST endpoints for image upload, feature extraction, and similarity retrieval.</li>
+              <li>Developed a Semantic Search Engine using embeddings and vector search, reducing time spent locating relevant internal information.</li>
+              <li>Implemented dynamic reloading for an internal tool, cutting daily manual restart frequency from 25–30 down to 1.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-company">Mindset IT Solutions</div>
+            Jan 2026 – May 2026<br>Remote
+          </div>
+          <div>
+            <h3 class="exp-role">Software Developer Intern</h3>
+            <ul class="exp-details">
+              <li>Built a Movie Ticketing System using Java, Spring Boot, Spring Data JPA/Hibernate, and MySQL with MVC architecture and layered service design.</li>
+              <li>Developed RESTful APIs for movie listings, show scheduling, seat selection, and booking management with full CRUD operations.</li>
+              <li>Designed the relational MySQL schema with appropriate constraints and JPA relationships; implemented centralized exception handling.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" style="border-top: 1px solid var(--border)">
+    <div class="container">
+      <p class="section-label">// skills</p>
+      <h2 class="section-title">What I work with</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-title">Languages</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Java 21</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Python</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Backend</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Spring Boot</span>
+            <span class="skill-tag">Spring MVC</span>
+            <span class="skill-tag">Spring Data JPA</span>
+            <span class="skill-tag">Hibernate</span>
+            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">JDBC</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Frontend</div>
+          <div class="skill-tags">
+            <span class="skill-tag">React.js</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">Bootstrap</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Core Java</div>
+          <div class="skill-tags">
+            <span class="skill-tag">OOP</span>
+            <span class="skill-tag">Collections</span>
+            <span class="skill-tag">Streams</span>
+            <span class="skill-tag">Lambdas</span>
+            <span class="skill-tag">Multithreading</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Database & Cloud</div>
+          <div class="skill-tags">
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">AWS EC2</span>
+            <span class="skill-tag">AWS S3</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Tools & AI</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Maven</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">JUnit</span>
+            <span class="skill-tag">Postman</span>
+            <span class="skill-tag">Spring AI</span>
+            <span class="skill-tag">LangChain4j</span>
+            <span class="skill-tag">n8n</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" style="border-top: 1px solid var(--border)">
+    <div class="container">
+      <p class="section-label">// projects</p>
+      <h2 class="section-title">Things I've built</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <h3 class="project-name">Autonomous AI Debugger Agent</h3>
+          <p class="project-stack">Java · Spring Boot · Spring AI · LangChain4j · Maven</p>
+          <ul class="project-desc">
+            <li>Java-based developer tool with three modes (Chat, Agent, Auto-Fix) that autonomously diagnoses code errors and suggests context-aware patches.</li>
+            <li>Implemented AST parsing to extract structural code context and combined it with LLM agents for higher-quality patch suggestions.</li>
+            <li>Designed an iterative feedback loop that validates fixes against unit tests and refines patches until they pass.</li>
+            <li>Integrated n8n workflow automation and exposed functionality through REST APIs.</li>
+          </ul>
+        </div>
+
+        <div class="project-card">
+          <h3 class="project-name">Event Management Platform</h3>
+          <p class="project-stack">Java · Spring Boot · React.js · MySQL · REST APIs</p>
+          <ul class="project-desc">
+            <li>Full-stack event management app with authentication, role-based access control, and multi-step approval workflows.</li>
+            <li>RESTful APIs for event creation, registration, and approval management backed by a normalized MySQL schema.</li>
+            <li>Integrated automated QR code generation for event check-ins, eliminating registration desk bottlenecks.</li>
+            <li>Wrote unit tests using JUnit for service-layer business logic.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" style="border-top: 1px solid var(--border)">
+    <div class="container">
+      <p class="section-label">// education</p>
+      <h2 class="section-title">Where I studied</h2>
+      <div class="edu-card">
+        <div>
+          <h3 class="edu-degree">B.E. in Computer Science & Engineering</h3>
+          <p class="edu-school">MVJ College of Engineering</p>
+        </div>
+        <div class="edu-right">
+          <div class="edu-cgpa">8.38 / 10</div>
+          <div class="edu-year">2022 – 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <p class="section-label">// contact</p>
+      <h2 class="section-title">Let's connect</h2>
+      <div class="contact-grid">
+        <a href="mailto:saikarthikjob@gmail.com" class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+          saikarthikjob@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/koderkarthik124" target="_blank" rel="noopener" class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/koderkarthik124" target="_blank" rel="noopener" class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="tel:+919380452696" class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          +91-9380452696
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      &copy; 2026 Sai Karthik K. Built with care.
+    </div>
+  </footer>
+
+</body>
+</html>
